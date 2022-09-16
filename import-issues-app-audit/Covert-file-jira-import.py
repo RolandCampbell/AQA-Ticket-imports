@@ -11,7 +11,7 @@ class BuildHTML:
 	htmlLine = ""
 	def __init__(self, bigpain, platform):
 		self.lineToEdit = bigpain
-		self.platform = args.platform
+		
 		print( self.platform, self.lineToEdit)
 
 	def convertToHtml(self):
@@ -26,10 +26,9 @@ class ImportFile:
 	firstTime = True
 	fileName = ""
 	platform = ""
-	def __init__(self, fileName, platform):
-		self.fileName = args.fileName
-		self.platform = args.platform
-		print("in constructor" + self.fileName + self.platform)
+	def __init__(self, fileName):
+		self.fileName = fileName
+		print("in constructor" + self.fileName )
 
 	def convertFile(self):
 		
@@ -57,19 +56,19 @@ class ImportFile:
 				f.close 
 
 		
-
-parser = argparse.ArgumentParser(add_help=False)
-
-parser.add_argument('-p', action="store", dest="platform", choices=["jira"],default="jira", help=("only jira suported at this time"))
-parser.add_argument('-f', action="store", dest="fileName", required=True)
-args = parser.parse_args()
-
-if not path.exists(args.fileName):
-	print("file " + str(args.fileName) + "doesn't exist")
-	sys.exit(1)
+def main():
+	args = sys.argv[1:]
+	print(args[1])
+	if not path.exists(".\\" + args[1]):
+		print("file " + str(args[1]) + "doesn't exist")
+		sys.exit(1)
+	fileName = args[1]	
 
 
-updateFile = ImportFile(args.fileName, args.platform)
-print (updateFile.platform)
-updateFile.convertFile()
-print ("after convert")
+	updateFile = ImportFile(fileName)
+	print (updateFile.fileName)
+	updateFile.convertFile()
+	print ("after convert")
+
+if __name__ == "__main__":
+    main()
