@@ -12,14 +12,19 @@ class BuildHTML:
 	def __init__(self, bigpain, platform):
 		self.lineToEdit = bigpain
 		
-		print( self.platform, self.lineToEdit)
+		print( self.lineToEdit)
 
 	def convertToHtml(self):
 		print("in convert to html")
 		self.htmlLine = self.lineToEdit.replace("\\","</div><div>")
 		self.htmlLine = "<div>" + self.htmlLine.strip('\n') + "</div>"
-		print(self.htmlLine)
-		return (self.htmlLine)
+		addLink1 = self.htmlLine.split('[')
+		addLink2 = addLink1[1].split( ']' )
+		addLink3 = addLink2[0].split( '|')
+		linkHTML = "<a href=" + "\"\"\""+ addLink3[1] +"\"\"\"" + ">" + addLink3[0] + "<a>"
+		newHTMLLine = addLink1[0]  + linkHTML + addLink2[1]
+		print(newHTMLLine)
+		return (newHTMLLine)
 
 
 class ImportFile:
@@ -38,7 +43,7 @@ class ImportFile:
 				for line in f:
 					if self.firstTime:
 						self.firstTime = False
-						f1.write("Title,Description\n")
+						f1.write("Title,Work Item Type,Description\n")
 						print("firsttime")
 					else:
 						strLine = line
@@ -49,7 +54,7 @@ class ImportFile:
 							bigpain = splitArray[3]
 							bh = BuildHTML(bigpain, self.platform)
 
-							writeLine = splitArray[1] + "," + bh.convertToHtml() +'\n'
+							writeLine = splitArray[1] + ",Issue," + bh.convertToHtml() +'\n'
 							f1.write(writeLine)
 							print("other times") 
 				f1.close
