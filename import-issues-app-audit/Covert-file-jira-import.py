@@ -19,12 +19,15 @@ class BuildHTML:
 		self.htmlLine = self.lineToEdit.replace("\\","</div><div>")
 		self.htmlLine = "<div>" + self.htmlLine.strip('\n') + "</div>"
 		addLink1 = self.htmlLine.split('[')
-		addLink2 = addLink1[1].split( ']' )
-		addLink3 = addLink2[0].split( '|')
-		linkHTML = "<a href=" + "\"\"\""+ addLink3[1] +"\"\"\"" + ">" + addLink3[0] + "<a>"
-		newHTMLLine = addLink1[0]  + linkHTML + addLink2[1]
-		print(newHTMLLine)
-		return (newHTMLLine)
+		if len(addLink1) != 1: 
+			addLink2 = addLink1[1].split( ']' )
+			addLink3 = addLink2[0].split( '|')
+			linkHTML = "<a href=" + "\"\"\""+ addLink3[1] +"\"\"\"" + ">" + addLink3[0] + "<a>"
+			newHTMLLine = addLink1[0]  + linkHTML + addLink2[1]
+			print(newHTMLLine)
+			return (newHTMLLine)
+		else:
+			return self.htmlLine
 
 
 class ImportFile:
