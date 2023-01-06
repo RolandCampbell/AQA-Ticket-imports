@@ -17,7 +17,7 @@ class BuildHTML:
 	def convertToHtml(self):
 		print("in convert to html")
 		self.htmlLine = self.lineToEdit.replace("\\","</div><div>")
-		self.htmlLine = "<div>" + self.htmlLine.strip('\n') + "</div>"
+		self.htmlLine = "<div><p>" + self.htmlLine.strip('\n') + "</p></div>"
 		addLink1 = self.htmlLine.split('[')
 		if len(addLink1) != 1: 
 			addLink2 = addLink1[1].split( ']' )
